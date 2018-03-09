@@ -11,7 +11,10 @@ buildscript {
 	}
 }
 
+//For Coveralls
+apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
+
 apply plugin: 'java'
 apply plugin: 'java'
 apply plugin: 'eclipse'
