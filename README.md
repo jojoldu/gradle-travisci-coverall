@@ -1,4 +1,6 @@
-# Gradle + SpringBoot + Travis CI + Coverall 연동하기
+# Gradle + SpringBoot + Travis CI + Coveralls 연동하기
+
+[![Build Status](https://travis-ci.org/jojoldu/gradle-travisci-coverall.svg?branch=master)](https://travis-ci.org/jojoldu/gradle-travisci-coverall)
 
 ![travis](./images/travis.png)
 
@@ -84,7 +86,6 @@ public class CalculatorTest {
 
 ![travis2](./images/travis2.png)
 
-
 그리고 프로젝트에 ```.travis.yml``` 파일을 생성해서 아래 내용을 추가합니다.
 
 ```yml
@@ -108,7 +109,27 @@ script: "./gradlew clean build"
 
 ![travis3](./images/travis3.png)
 
+여기까지 하셨다면 바로 Git Commit & Push 합니다.  
+그리고 다시 Travis CI로 가보시면!
+
+![travis4](./images/travis4.png)
+
+빌드가 성공적으로 수행됐음을 알 수 있습니다.  
+그리고 빌드 상태 라벨을 복사해서 Github 프로젝트에 추가합니다.
+
+![travis5](./images/travis5.png)
+
+여기서 복사한 코드를 프로젝트 안의 README.md에 붙여넣습니다.
+
+![travis6](./images/travis6.png)
+
+이것도 마찬가지로 push를 하시면!
+
+
 ## 3. Coverall 연동
+
+Travis CI와 연동된 프로젝트를 바로 [Coveralls](https://coveralls.io/)와 연동해보겠습니다.  
+
 
 ## 4. 텔레그램 봇 연동
   
