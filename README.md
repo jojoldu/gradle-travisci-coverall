@@ -78,6 +78,35 @@ public class CalculatorTest {
 [Travis CI](https://travis-ci.org/)로 접속합니다.  
 로그인 하신뒤, 본인의 프로필 페이지로 이동합니다.
 
+![travis1](./images/travis1.png)
+
+방금 올린 저장소를 검색해서 찾아 아래와 같이 활성화시킵니다.
+
+![travis2](./images/travis2.png)
+
+
+그리고 프로젝트에 ```.travis.yml``` 파일을 생성해서 아래 내용을 추가합니다.
+
+```yml
+language: java
+jdk:
+  - openjdk8
+
+branches:
+  only:
+    - master
+
+# Travis CI 서버의 Cache 활성화
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+# clean 후 Build (Build시 자동으로 test 수행)
+script: "./gradlew clean build"
+```
+
+![travis3](./images/travis3.png)
 
 ## 3. Coverall 연동
 
