@@ -10,7 +10,7 @@
   
 하나의 기능을 수정 혹은 추가 후 Git Push  
 -> Travis CI에서 통합 빌드 및 테스트  
--> Coverall에서 테스트 커버리지 측정  
+-> Coverall에서 테스트 커버리지 관리  
 -> 텔레그램으로 CI 결과 알람  
   
 물론 여기서 AWS CodeDeploy나 다른 CD 툴을 사용한면 배포까지 자동화 시킬수 있습니다.  
@@ -18,7 +18,7 @@
 > 관련된 내용은 [스프링부트로 웹 서비스 출시하기 - 6. TravisCI & AWS CodeDeploy로 배포 자동화 구축하기](http://jojoldu.tistory.com/265)를 참고해보세요!  
 
 앞서 [스프링부트로 웹 서비스 출시하기 시리즈](http://jojoldu.tistory.com/250?category=635883)에서 CI/CD 환경을 소개 드렸는데요.  
-여기서 **Coverall로 테스트커버리지 실시간 측정, 텔레그램 봇과의 연동** 등이 누락되기도 했었고, 시리즈 전체 없이 단순 Java/Gradle 환경에서 CI연동 방법만 보고 싶으신 분들이 계셔서 정리하게 되었습니다.
+여기서 **Coverall로 테스트커버리지 관리, 텔레그램 봇과의 연동** 등이 누락되기도 했었고, 시리즈 전체 없이 단순 Java/Gradle 환경에서 CI연동 방법만 보고 싶으신 분들이 계셔서 정리하게 되었습니다.
 
 > 이번편 다음으로는 **Gradle 멀티 모듈환경에서의 Coverall 연동 방법**을 소개드릴 예정입니다.
   
@@ -114,7 +114,11 @@ script: "./gradlew clean build"
 
 ![travis4](./images/travis4.png)
 
-빌드가 성공적으로 수행됐음을 알 수 있습니다.  
+**빌드가 성공적으로 수행**됐음을 알 수 있습니다.  
+이제는 Master 브랜치로 Push 할때마다 Travis CI에서 빌드가 계속 수행될 것입니다.  
+
+> develop 브랜치로 변경하길 원하시면 .travis.yml에서 **branches에서 master 부분을 develop으로 변경**하시면 됩니다.
+
 그리고 빌드 상태 라벨을 복사해서 Github 프로젝트에 추가합니다.
 
 ![travis5](./images/travis5.png)
@@ -125,11 +129,42 @@ script: "./gradlew clean build"
 
 이것도 마찬가지로 push를 하시면!
 
+![travis7](./images/travis7.png)
+
+Github에 성공적으로 반영 되었습니다.
 
 ## 3. Coverall 연동
 
 Travis CI와 연동된 프로젝트를 바로 [Coveralls](https://coveralls.io/)와 연동해보겠습니다.  
+Coveralls는 Travis CI와 연동해서 **테스트 커버리지를 관리해주는 웹 서비스**입니다.  
+즉, Travis CI에서 테스트 커버리지 측정 도구 (ex: jacoco)를 실행해서 coveralls로 결과를 전송하면 이 결과를 통계로 남기고 보여주는 서비스 입니다.  
+이 측정치가 높으면 높을수록 견고한 프로젝트임을 알 수 있겠죠?  
+(물론 테스트 커버리지가 전부일순 없습니다^^;)  
+  
+[사이트](https://coveralls.io)로 접속해서 메인화면의 좌측에 있는 **GET STARTED FOR FREE**을 클릭합니다.  
 
+![coveralls1](./images/coveralls1.png)
+
+Github 으로 로그인합니다.
+
+![coveralls2](./images/coveralls2.png)
+
+![coveralls3](./images/coveralls3.png)
+
+
+![coveralls4](./images/coveralls4.png)
+
+**Details** 버튼을 클릭하면 아래와 같이 기본 가이드가 보입니다.  
+여기서 ```repo_token: 토큰값``` 이 있는 부분을 복사합니다.
+
+![coveralls5](./images/coveralls5.png)
+
+그리고 프로젝트에 ```.coveralls.yml```을 생성해서 복사한 내용을 그대로 추가합니다.
+
+![coveralls6](./images/coveralls6.png)
+
+
+[jacoco](http://www.androidhuman.com/lecture/quality/2016/02/13/jacoco_unit_test_android/)
 
 ## 4. 텔레그램 봇 연동
   
