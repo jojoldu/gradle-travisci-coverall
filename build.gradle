@@ -11,11 +11,8 @@ buildscript {
 	}
 }
 
-//For Coveralls
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
-
-apply plugin: 'java'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -24,7 +21,6 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.jojoldu'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-
 
 jacocoTestReport {
 	reports {
@@ -36,7 +32,6 @@ jacocoTestReport {
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')

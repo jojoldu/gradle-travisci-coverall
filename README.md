@@ -1,6 +1,6 @@
 # Gradle + SpringBoot + Travis CI + Coveralls 연동하기
 
-[![Build Status](https://travis-ci.org/jojoldu/gradle-travisci-coverall.svg?branch=master)](https://travis-ci.org/jojoldu/gradle-travisci-coverall)
+[![Build Status](https://travis-ci.org/jojoldu/gradle-travisci-coverall.svg?branch=master)](https://travis-ci.org/jojoldu/gradle-travisci-coverall) [![Coverage Status](https://coveralls.io/repos/github/jojoldu/gradle-travisci-coverall/badge.svg?branch=master)](https://coveralls.io/github/jojoldu/gradle-travisci-coverall?branch=master)
 
 ![travis](./images/travis.png)
 
@@ -163,8 +163,64 @@ Github 으로 로그인합니다.
 
 ![coveralls6](./images/coveralls6.png)
 
+자 연동은 완료되었으니 이제 테스트 커버리지를 측정할 도구를 Gradle에 추가하겠습니다.  
+우리가 사용할 도구는 바로 [jacoco](http://www.eclemma.org/jacoco/) 입니다.  
 
-[jacoco](http://www.androidhuman.com/lecture/quality/2016/02/13/jacoco_unit_test_android/)
+> coveralls는 결국 직접 테스트 커버리지를 측정하진 않습니다.  
+프로젝트에 내장된 측정도구를 Travis CI에서 사용해서 coveralls 사이트로 전송해야만 합니다.  
+
+jacoco를 사용해 coveralls로 전송해야하기 때문에 Gradle의 플러그인을 하나 추가하겠습니다.  
+추가할 플러그인은 [coveralls-gradle-plugin](https://github.com/kt3k/coveralls-gradle-plugin) 입니다.  
+
+프로젝트의 build.gradle에 다음과 같은 코드를 추가합니다.
+
+![coveralls7](./images/coveralls7.png)
+
+```yml
+buildscript {
+    ...
+	dependencies {
+        ...
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+	}
+}
+
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
+
+...
+
+jacocoTestReport {
+	reports {
+		xml.enabled = true // coveralls plugin depends on xml format report
+		html.enabled = true
+	}
+}
+
+...
+
+```
+
+자 이렇게까지 하시면 완료 됩니다.  
+바로 Github으로 Push 해봅니다.  
+Travis CI의 빌드가 끝난뒤 coveralls 사이트를 방문해보시면!
+
+![coveralls8](./images/coveralls8.png)
+
+
+테스트커버리지가 출력 되는걸 알 수 있습니다.  
+프로젝트를 클릭해서 들어가보시면 자세한 상세 통계가 나옵니다.
+
+![coveralls9](./images/coveralls9.png)
+
+Coveralls까지 연동했으니 라벨을 추가하겠습니다.  
+BADGE의 **EMBED**를 클릭합니다.
+
+![coveralls10](./images/coveralls10.png)
+
+마크다운 코드를 복사해서 README.md에 추가합니다.
+
+> 좀 더 자세한 내용은 [outsider님의 포스팅](https://blog.outsider.ne.kr/954)을 참고해보세요!
 
 ## 4. 텔레그램 봇 연동
   
