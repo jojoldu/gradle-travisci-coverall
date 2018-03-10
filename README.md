@@ -220,9 +220,42 @@ BADGE의 **EMBED**를 클릭합니다.
 
 마크다운 코드를 복사해서 README.md에 추가합니다.
 
+![coveralls11](./images/coveralls11.png)
+
+최종 수정후 Github으로 Push 해보시면!
+
+![coveralls12](./images/coveralls12.png)
+
+Coveralls 라벨도 추가되었습니다!
+
 > 좀 더 자세한 내용은 [outsider님의 포스팅](https://blog.outsider.ne.kr/954)을 참고해보세요!
 
 ## 4. 텔레그램 봇 연동
   
+Travis CI를 통해서 빌드를 하기 때문에 성공/실패 알람을 받아야하는데요.  
+기본적인 방법은 메일을 통해 받는것이지만, 메일은 아무래도 잘 확인을 안하게 되어서 다른 메신저를 통해서 알람을 받습니다.  
+대중적인 방법은 슬랙인데, 슬랙이 아무래도 네이티브 앱이 아닌지라 속도가 많이 느려 개인적으로 선호하진 않습니다.  
+그래서 최근에는 [텔레그램](http://www.telegram.pe.kr/)을 사용하고 있습니다.  
+텔레그램 설치와 가입은 여기서는 생략하겠습니다.  
   
+텔레그램 봇 스토어에서 Travis CI 봇을 찾습니다. [링크](https://storebot.me/bot/travisci_build_bot)  
+  
+좌측의 **Add To**를 클릭합니다.
 
+![telegram1](./images/telegram1.png)
+
+앱이 열리면서 Travis CI 봇의 안내에 따라 진행하시면 됩니다.
+
+![telegram2](./images/telegram2.png)
+
+여기서 깃헙 주소는 전체가 아닌 **username/repository이름** 으로 하시면 됩니다.  
+가이드대로 다 하셨으면 다시 프로젝트의 ```.travis.yml``` 에 코드를 추가합니다.
+
+```yml
+notifications:
+    webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
+```
+
+![telegram3](./images/telegram3.png)
+
+자 여기까지 다하셨으면 바로 Github으로 Push 해봅니다.
